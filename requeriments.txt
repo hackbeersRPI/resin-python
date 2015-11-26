@@ -1,0 +1,11 @@
+jupyter
+json
+jsonschema
+pyzmq
+pexpect
+simplegeneric
+pickleshare
+six
+functools32
+ipykernel
+request
