@@ -10,6 +10,6 @@ RUN echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py
 RUN curl -L -k "https://github.com/krallin/tini/releases/download/v0.6.0/tini" > tini
 RUN mv tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
-EXPOSE 8888
+EXPOSE 80
 ENTRYPOINT ["tini", "--"]
 CMD ["jupyter", "notebook"]
