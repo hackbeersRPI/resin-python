@@ -39,8 +39,8 @@ RUN apt-get update \
 	curl
 
 #ISNTAL PIP PACKAGES
-RUN /usr/local/bin/pip install pip --upgrade -q \
-	&& /usr/local/bin/pip install -q -r requeriments.txt \
+RUN 	pip install pip --upgrade -q \
+	&& pip install -q -r requeriments.txt \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
