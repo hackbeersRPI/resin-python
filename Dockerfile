@@ -1,14 +1,54 @@
 FROM resin/rpi-raspbian:jessie
+
+#VARIABLEs
+ENV container lxc
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update && apt-get install -yq --no-install-recommends python python-dev python-pip libzmq-dev build-essential libffi-dev curl pound
-ADD requeriments.txt .
-ADD pound.cfg /etc/pound/pound.cfg
-RUN pound
-RUN ln -sf /usr/local/bin/pip /usr/bin/pip
-RUN pip install pip --upgrade -q
-RUN pip install -q -r requeriments.txt
-RUN python -m ipykernel.kernelspec
-RUN mkdir -p -m 700 /root/.jupyter/ && echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py
-RUN echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py
 EXPOSE 80
-ENTRYPOINT ["jupyter", "notebook"]
+
+#ADD FILES
+COPY requeriments.txt .
+COPY entry.sh /usr/bin/entry.sh
+COPY launch.service /etc/systemd/system/launch.service
+
+#DISABLE SERVICES
+RUN systemctl mask \
+    dev-hugepages.mount \
+    sys-fs-fuse-connections.mount \
+    sys-kernel-config.mount \
+
+    display-manager.service \
+    getty@.service \
+    systemd-logind.service \
+    systemd-remount-fs.service \
+
+    getty.target \
+    graphical.target
+
+RUN  chmod +x /usr/bin/entry.sh
+RUN systemctl enable /etc/systemd/system/launch.service
+
+#INSTALL PACKAGES
+RUN apt-get update \
+	&& apt-get install -yq --no-install-recommends \
+	python \
+	python-dev \
+	python-pip \
+	libzmq-dev \
+	build-essential \
+	libffi-dev \
+	curl
+RUN ln -sf /usr/local/bin/pip /usr/bin/pip
+
+#ISNTAL PIP PACKAGES
+RUN pip install pip --upgrade -q \
+	&& pip install -q -r requeriments.txt \
+	&& python -m ipykernel.kernelspec
+
+#RUN JUPITER
+RUN mkdir -p -m 700 /root/.jupyter/ \
+	&& echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py
+
+#MAIN
+ENTRYPOINT ["/usr/bin/entry.sh"]
+CMD ["jupyter", "notebook"]
