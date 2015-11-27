@@ -1,5 +1,4 @@
 jupyter
-json
 jsonschema
 pyzmq
 pexpect
