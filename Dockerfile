@@ -37,11 +37,10 @@ RUN apt-get update \
 	build-essential \
 	libffi-dev \
 	curl
-RUN ln -sf /usr/local/bin/pip /usr/bin/pip
 
 #ISNTAL PIP PACKAGES
-RUN pip install pip --upgrade -q \
-	&& pip install -q -r requeriments.txt \
+RUN /usr/local/bin/pip install pip --upgrade -q \
+	&& /usr/local/bin/pip install -q -r requeriments.txt \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
