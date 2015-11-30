@@ -9,6 +9,7 @@ EXPOSE 80
 COPY requeriments.txt .
 COPY entry.sh /usr/bin/entry.sh
 COPY launch.service /etc/systemd/system/launch.service
+COPY jupyter.sh .
 
 #DISABLE SERVICES
 RUN systemctl mask \
@@ -44,6 +45,7 @@ RUN 	pip install pip --upgrade -q \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
+RUN chmod +x jupyter.sh
 RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
@@ -52,4 +54,4 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 
 #MAIN
 ENTRYPOINT ["/usr/bin/entry.sh"]
-CMD ["sh","-c","jupyter", "notebook", "--no-browser"]
+CMD ["jupyter.sh"]
