@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 #ADD FILES
 COPY requeriments.txt .
-COPY tini /tini
-#COPY entry.sh /usr/bin/entry.sh
+COPY tini /tini/
+#COPY entry.sh/ /usr/bin/entry.sh
 #COPY launch.service /etc/systemd/system/launch.service
 #COPY pound.cfg .
 
