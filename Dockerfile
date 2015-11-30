@@ -43,8 +43,9 @@ RUN apt-get update \
 
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
-WORKDIR tini
-RUN cmake . && make .
+RUN  cd /tini \
+	&& cmake . \
+	&& make .
 RUN chmod +x tini
 
 #ISNTAL PIP PACKAGES
