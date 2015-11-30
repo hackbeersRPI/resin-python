@@ -53,5 +53,5 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.allow_origin = *"
 
 #MAIN
-ENTRYPOINT ["/usr/bin/entry.sh"]
-CMD ["jupyter.sh"]
+#ENTRYPOINT ["/usr/bin/entry.sh"]
+ENTRYPOINT ["jupyter.sh"]
