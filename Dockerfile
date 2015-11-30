@@ -55,7 +55,7 @@ RUN 	pip install pip --upgrade -q \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
-RUN chmod +x jupyter.sh
+#RUN chmod +x jupyter.sh
 RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.ip = '127.0.0.1'" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.port = 8888" >> /root/.jupyter/jupyter_notebook_config.py \
