@@ -48,7 +48,7 @@ RUN unzip tini.zip
 WORKDIR tini
 RUN 	 cmake . \
 	&& make .
-RUN chmod +x /tini/tini
+RUN chmod +x tini
 
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade -q \
