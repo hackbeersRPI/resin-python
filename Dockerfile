@@ -43,7 +43,7 @@ RUN apt-get update \
 
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
-WORKDIR /tini
+WORKDIR tini
 RUN cmake . && make .
 RUN chmod +x tini
 
