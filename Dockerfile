@@ -3,7 +3,6 @@ FROM resin/rpi-raspbian:jessie
 #VARIABLEs
 ENV container lxc
 ENV DEBIAN_FRONTEND=noninteractive
-EXPOSE 80
 
 #ADD FILES
 COPY requeriments.txt .
@@ -49,12 +48,13 @@ RUN 	pip install pip --upgrade -q \
 #RUN JUPITER
 RUN chmod +x jupyter.sh
 RUN mkdir -p -m 700 /root/.jupyter/ \
-	&& echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py \
-	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.ip = '127.0.0.1'" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.port = 8888" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.allow_origin = *" \
 	&& echo "c.NotebookApp.trust_xheaders = True"
 
 #MAIN
+RUN pound -f pound.cfg
 ENTRYPOINT ["/usr/bin/entry.sh"]
 CMD ["bash","jupyter.sh"]
