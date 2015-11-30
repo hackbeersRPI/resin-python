@@ -46,8 +46,10 @@ RUN 	pip install pip --upgrade -q \
 #RUN JUPITER
 RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.ip = '*'" >> /root/.jupyter/jupyter_notebook_config.py \
-	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py
+	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.allow_origin = *"
 
 #MAIN
 ENTRYPOINT ["/usr/bin/entry.sh"]
-CMD ["jupyter", "notebook"]
+CMD ["sh","-c","jupyter", "notebook", "--no-browser"]
