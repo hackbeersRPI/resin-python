@@ -54,4 +54,4 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 
 #MAIN
 #ENTRYPOINT ["/usr/bin/entry.sh"]
-ENTRYPOINT ["jupyter.sh"]
+ENTRYPOINT ["./jupyter.sh"]
