@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 #ADD FILES
 COPY requeriments.txt .
-ADD /tini/ /tini/
+ADD tini.zip .
 #COPY entry.sh/ /usr/bin/entry.sh
 #COPY launch.service /etc/systemd/system/launch.service
 #COPY pound.cfg .
@@ -39,12 +39,14 @@ RUN apt-get update \
 	libffi-dev \
 	curl \
 	cmake \
-	git
+	git \
+	unzip
 
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
+RUN unzip tini.zip -d tini 
 WORKDIR tini
-RUN  cmake . \
+RUN 	 cmake . \
 	&& make .
 RUN chmod +x tini
 
