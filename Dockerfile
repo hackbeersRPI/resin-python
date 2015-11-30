@@ -57,4 +57,4 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 #MAIN
 RUN pound -f pound.cfg
 ENTRYPOINT ["/usr/bin/entry.sh"]
-CMD ["bash","jupyter.sh"]
+CMD ["python","jupyter.py"]
