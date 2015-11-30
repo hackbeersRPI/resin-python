@@ -44,7 +44,7 @@ RUN apt-get update \
 
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
-RUN unzip tini.zip -d tini 
+RUN unzip tini.zip 
 WORKDIR tini
 RUN 	 cmake . \
 	&& make .
