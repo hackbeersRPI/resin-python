@@ -17,12 +17,10 @@ RUN systemctl mask \
     dev-hugepages.mount \
     sys-fs-fuse-connections.mount \
     sys-kernel-config.mount \
-
     display-manager.service \
     getty@.service \
     systemd-logind.service \
     systemd-remount-fs.service \
-
     getty.target \
     graphical.target
 
@@ -45,10 +43,10 @@ RUN apt-get update \
 
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
-RUN unzip tini.zip 
+RUN unzip tini.zip
 WORKDIR tini
 RUN cmake . \
-	&& make 
+	&& make
 
 #ISNTAL PIP PACKAGES
 WORKDIR /
