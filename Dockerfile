@@ -38,15 +38,13 @@ RUN apt-get update \
 	libffi-dev \
 	curl \
 	cmake \
-	libraspberrypi-bin \
-	module-init-tools \
 	git
 
 #COMPILE TINI
 RUN git clone https://github.com/krallin/tini.git tini
 WORKDIR /tini
 RUN cmake . && make .
-RUN chmod +x /tini/tini
+RUN chmod +x tini
 
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade -q \
