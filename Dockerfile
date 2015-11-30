@@ -3,6 +3,7 @@ FROM resin/rpi-raspbian:jessie
 #VARIABLEs
 ENV container lxc
 ENV DEBIAN_FRONTEND=noninteractive
+ENV CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
 
 #ADD FILES
 COPY requeriments.txt .
@@ -46,9 +47,8 @@ RUN apt-get update \
 #RUN git clone https://github.com/krallin/tini.git tini
 RUN unzip tini.zip 
 WORKDIR tini
-RUN 	 cmake . \
-	&& make .
-RUN chmod +x ./tini/tini
+RUN cmake . \
+	&& make 
 
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade -q \
