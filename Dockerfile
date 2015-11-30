@@ -10,6 +10,7 @@ COPY requeriments.txt .
 COPY entry.sh /usr/bin/entry.sh
 COPY launch.service /etc/systemd/system/launch.service
 COPY jupyter.sh .
+COPY pound.cfg .
 
 #DISABLE SERVICES
 RUN systemctl mask \
@@ -37,7 +38,8 @@ RUN apt-get update \
 	libzmq-dev \
 	build-essential \
 	libffi-dev \
-	curl
+	curl \
+	pound
 
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade -q \
@@ -54,5 +56,5 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.trust_xheaders = True"
 
 #MAIN
-#ENTRYPOINT ["/usr/bin/entry.sh"]
-ENTRYPOINT ["./jupyter.sh"]
+ENTRYPOINT ["/usr/bin/entry.sh"]
+CMD ["bash","jupyter.sh"]
