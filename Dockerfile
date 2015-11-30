@@ -6,10 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 #ADD FILES
 COPY requeriments.txt .
-COPY entry.sh /usr/bin/entry.sh
-COPY launch.service /etc/systemd/system/launch.service
-COPY jupyter.sh .
-COPY pound.cfg .
+#COPY entry.sh /usr/bin/entry.sh
+#COPY launch.service /etc/systemd/system/launch.service
+#COPY pound.cfg .
 
 #DISABLE SERVICES
 RUN systemctl mask \
@@ -25,8 +24,8 @@ RUN systemctl mask \
     getty.target \
     graphical.target
 
-RUN  chmod +x /usr/bin/entry.sh
-RUN systemctl enable /etc/systemd/system/launch.service
+#RUN  chmod +x /usr/bin/entry.sh
+#RUN systemctl enable /etc/systemd/system/launch.service
 
 #INSTALL PACKAGES
 RUN apt-get update \
@@ -38,7 +37,16 @@ RUN apt-get update \
 	build-essential \
 	libffi-dev \
 	curl \
-	pound
+	cmake \
+	libraspberrypi-bin \
+	module-init-tools \
+	git
+
+#COMPILE TINI
+RUN git clone https://github.com/krallin/tini.git tini
+WORKDIR /tini
+RUN cmake . && make .
+RUN chmod +x /tini/tini
 
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade -q \
@@ -55,6 +63,5 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.trust_xheaders = True"
 
 #MAIN
-RUN pound -f pound.cfg
-ENTRYPOINT ["/usr/bin/entry.sh"]
-CMD ["python","jupyter.py"]
+ENTRYPOINT ["/tini/tini","-s","--"]
+CMD ["jupyter", "notebook"]
