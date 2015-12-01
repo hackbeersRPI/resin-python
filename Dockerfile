@@ -33,7 +33,7 @@ RUN apt-get update \
 	vim \
 	wget \
 	shellinabox \
-	pound
+	haproxy
 
 #COMPILE TINI
 RUN unzip tini.zip
@@ -46,9 +46,9 @@ RUN 	pip install pip --upgrade  \
 	&& pip install -r requeriments.txt
 
 #RUN POUND
-RUN mkdir /var/run/pound
-ADD pound.cfg /etc/pound/pound.cfg
-RUN pound
+RUN mkdir /var/lib/haproxy
+RUN mkdir /var/run/haproxy
+ADD haproxy.cfg /etc/haproxy/haproxy.cfg
 
 #SHELL
 RUN useradd hack -m -d /home/hack -s /bin/bash
@@ -58,4 +58,4 @@ RUN /etc/init.d/shellinabox start
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
-CMD ["/bin/bash"]
+CMD ["/usr/sbin/haproxy", "-f", "/etc/haproxy/haproxy.cfg"]
