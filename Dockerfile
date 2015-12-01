@@ -52,7 +52,6 @@ ADD pound.cfg /etc/pound/pound.cfg
 RUN pound
 
 #SHELL
-RUN useradd hack
 RUN useradd hack -m -d /home/hack -s /bin/bash
 RUN echo "hack:temporal" | chpasswd
 RUN echo "hack ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
