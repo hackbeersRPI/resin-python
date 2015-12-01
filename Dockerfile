@@ -50,8 +50,8 @@ RUN 	cd tini \
 	&& make
 
 #ISNTAL PIP PACKAGES
-RUN echo $(which pip)
 RUN 	/usr/bin/pip install pip --upgrade  \
+	&& ln -sf /usr/local/bin/pip /usr/bin/pip \
 	&& /usr/bin/pip install -r requeriments.txt \
 	&& python -m ipykernel.kernelspec
 
