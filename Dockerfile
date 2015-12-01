@@ -33,7 +33,8 @@ RUN apt-get update \
 	python-pip \
 	vim \
 	wget \
-	ajaxterm
+	ajaxterm \
+	pound
 
 #COMPILE TINI
 RUN unzip tini.zip
@@ -44,6 +45,9 @@ RUN 	cd tini \
 #ISNTAL PIP PACKAGES
 RUN 	pip install pip --upgrade  \
 	&& pip install -r requeriments.txt
+
+#RUN POUND
+
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
