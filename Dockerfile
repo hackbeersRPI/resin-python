@@ -52,10 +52,10 @@ ADD pound.cfg /etc/pound/pound.cfg
 RUN pound
 
 #SHELL
-RUN useradd shell
-RUN useradd shell -m -d /home/shell -s /bin/bash
-RUN echo "shell:shell" | chpasswd
-RUN echo "shell ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
+RUN useradd hack
+RUN useradd hack -m -d /home/hack -s /bin/bash
+RUN echo "hack:temporal" | chpasswd
+RUN echo "hack ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
 RUN /etc/init.d/shellinabox start
 
 #MAIN
