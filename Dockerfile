@@ -1,10 +1,10 @@
-FROM resin/rpi-raspbian:jessie
+FROM resin/rpi-raspbian:wheezy
 
 #VARIABLEs
 ENV container lxc
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
-ENV TINI_SUBREAPER=""
+#ENV TINI_SUBREAPER=""
 #ADD FILES
 COPY requeriments.txt .
 ADD tini.zip .
@@ -64,5 +64,5 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.trust_xheaders = True"
 
 #MAIN
-ENTRYPOINT ["/tini/tini","-s","--"]
+ENTRYPOINT ["/tini/tini","--"]
 CMD ["jupyter", "notebook"]
