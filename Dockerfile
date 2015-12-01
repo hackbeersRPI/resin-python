@@ -32,7 +32,8 @@ RUN apt-get update \
 	python-dev \
 	python-pip \
 	vim \
-	wget
+	wget \
+	ajaxterm
 
 #COMPILE TINI
 RUN unzip tini.zip
