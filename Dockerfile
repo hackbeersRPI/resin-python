@@ -3,7 +3,7 @@ FROM resin/rpi-raspbian:wheezy
 #VARIABLEs
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
-#ENV TINI_SUBREAPER=""
+ENV TINI_SUBREAPER=""
 
 #ADD FILES
 COPY requeriments.txt .
@@ -43,7 +43,6 @@ RUN apt-get update \
 
 #COMPILE TINI
 RUN unzip tini.zip
-	
 RUN 	cd tini \
 	&& cmake . \
 	&& make
@@ -52,7 +51,7 @@ RUN 	cd tini \
 RUN 	/usr/bin/pip install pip --upgrade  \
 	&& ln -sf /usr/local/bin/pip /usr/bin/pip \
 	&& /usr/bin/pip install -r requeriments.txt \
-	&& python -m ipykernel.kernelspec
+	&& jupyter kernelspec install-self
 
 #RUN JUPITER
 RUN mkdir -p -m 700 /root/.jupyter/ \
@@ -60,8 +59,10 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.allow_origin = *" \
-	&& echo "c.NotebookApp.trust_xheaders = True"
+	&& echo "c.NotebookApp.trust_xheaders = True" \
+	&& echo "c.ConnectionFileMixin.ip = '0.0.0.0'" \
+	&& echo "c.ConnectionFileMixin.connection_file = '/usr/local/share/jupyter/kernels/python2'"
 
 #MAIN
-ENTRYPOINT ["/tini/tini","--"]
+ENTRYPOINT ["/tini/tini","-s","--"]
 CMD ["jupyter", "notebook", "--transport=ipc"]
