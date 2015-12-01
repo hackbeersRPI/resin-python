@@ -9,7 +9,7 @@ ENV TINI_SUBREAPER=""
 COPY requeriments.txt .
 ADD tini.zip .
 
-DISABLE SERVICES
+#DISABLE SERVICES
 RUN systemctl mask \
     dev-hugepages.mount \
     sys-fs-fuse-connections.mount \
