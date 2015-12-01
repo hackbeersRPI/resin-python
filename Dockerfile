@@ -1,4 +1,4 @@
-FROM hypriot/rpi-python
+FROM resin/rpi-raspbian:jessie
 
 #VARIABLEs
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,26 +9,30 @@ ENV TINI_SUBREAPER=""
 COPY requeriments.txt .
 ADD tini.zip .
 
-#DISABLE SERVICES
-#RUN systemctl mask \
- #   dev-hugepages.mount \
- #   sys-fs-fuse-connections.mount \
- #   sys-kernel-config.mount \
- #   display-manager.service \
- #   getty@.service \
- #   systemd-logind.service \
- #   systemd-remount-fs.service \
- #   getty.target \
- #   graphical.target
+DISABLE SERVICES
+RUN systemctl mask \
+    dev-hugepages.mount \
+    sys-fs-fuse-connections.mount \
+    sys-kernel-config.mount \
+    display-manager.service \
+    getty@.service \
+    systemd-logind.service \
+    systemd-remount-fs.service \
+    getty.target \
+    graphical.target
 
 #INSTALL PACKAGES
-RUN mkdir data
 RUN apt-get update \
 	&& apt-get install -yq --no-install-recommends \
 	build-essential \
 	libffi-dev \
 	cmake \
-	unzip
+	unzip \
+	python \
+	python-dev \
+	python-pip \
+	vim \
+	wget
 
 #COMPILE TINI
 RUN unzip tini.zip
@@ -37,9 +41,8 @@ RUN 	cd tini \
 	&& make
 
 #ISNTAL PIP PACKAGES
-RUN 	/usr/bin/pip install pip --upgrade  \
-	&& ln -sf /usr/local/bin/pip /usr/bin/pip \
-	&& /usr/bin/pip install -r requeriments.txt
+RUN 	pip install pip --upgrade  \
+	&& pip install -r requeriments.txt
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
