@@ -13,16 +13,16 @@ ADD tini.zip .
 #COPY pound.cfg .
 
 #DISABLE SERVICES
-RUN systemctl mask \
-    dev-hugepages.mount \
-    sys-fs-fuse-connections.mount \
-    sys-kernel-config.mount \
-    display-manager.service \
-    getty@.service \
-    systemd-logind.service \
-    systemd-remount-fs.service \
-    getty.target \
-    graphical.target
+#RUN systemctl mask \
+ #   dev-hugepages.mount \
+ #   sys-fs-fuse-connections.mount \
+ #   sys-kernel-config.mount \
+ #   display-manager.service \
+ #   getty@.service \
+ #   systemd-logind.service \
+ #   systemd-remount-fs.service \
+ #   getty.target \
+ #   graphical.target
 
 #RUN  chmod +x /usr/bin/entry.sh
 #RUN systemctl enable /etc/systemd/system/launch.service
