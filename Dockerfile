@@ -44,15 +44,15 @@ RUN apt-get update \
 #COMPILE TINI
 #RUN git clone https://github.com/krallin/tini.git tini
 RUN unzip tini.zip
-WORKDIR tini
-RUN cmake . \
+	
+RUN 	cd tini \
+	&& cmake . \
 	&& make
 
 #ISNTAL PIP PACKAGES
-WORKDIR /
-RUN 	usr/bin/pip install pip --upgrade -q \
-	&& usr/bin/pip install -q -r requeriments.txt \
-	&& usr/bin/python -m ipykernel.kernelspec
+RUN 	pip install pip --upgrade -q \
+	&& pip install -q -r requeriments.txt \
+	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
 #RUN chmod +x jupyter.sh
