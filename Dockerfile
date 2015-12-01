@@ -25,7 +25,6 @@ RUN systemctl mask \
 RUN apt-get update \
 	&& apt-get install -yq --no-install-recommends \
 	build-essential \
-	libffi-dev \
 	cmake \
 	unzip \
 	python \
