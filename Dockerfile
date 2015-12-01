@@ -51,8 +51,8 @@ RUN 	cd tini \
 
 #ISNTAL PIP PACKAGES
 RUN echo $(which pip)
-RUN 	pip install pip --upgrade -q \
-	&& pip install -q -r requeriments.txt \
+RUN 	/usr/bin/pip install pip --upgrade  \
+	&& /usr/bin/pip install -r requeriments.txt \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
