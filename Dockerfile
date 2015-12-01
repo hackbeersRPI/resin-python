@@ -22,6 +22,7 @@ ADD tini.zip .
  #   graphical.target
 
 #INSTALL PACKAGES
+RUN mkdir data
 RUN apt-get update \
 	&& apt-get install -yq --no-install-recommends \
 	build-essential \
