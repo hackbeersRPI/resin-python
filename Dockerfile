@@ -1,10 +1,10 @@
 FROM resin/rpi-raspbian:wheezy
 
 #VARIABLEs
-ENV container lxc
 ENV DEBIAN_FRONTEND=noninteractive
 ENV CFLAGS="-DPR_SET_CHILD_SUBREAPER=36 -DPR_GET_CHILD_SUBREAPER=37"
 #ENV TINI_SUBREAPER=""
+
 #ADD FILES
 COPY requeriments.txt .
 ADD tini.zip .
@@ -42,7 +42,6 @@ RUN apt-get update \
 	unzip
 
 #COMPILE TINI
-#RUN git clone https://github.com/krallin/tini.git tini
 RUN unzip tini.zip
 	
 RUN 	cd tini \
@@ -56,7 +55,6 @@ RUN 	/usr/bin/pip install pip --upgrade  \
 	&& python -m ipykernel.kernelspec
 
 #RUN JUPITER
-#RUN chmod +x jupyter.sh
 RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
@@ -66,4 +64,4 @@ RUN mkdir -p -m 700 /root/.jupyter/ \
 
 #MAIN
 ENTRYPOINT ["/tini/tini","--"]
-CMD ["jupyter", "notebook"]
+CMD ["jupyter", "notebook", "--transport=ipc"]
