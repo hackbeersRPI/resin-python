@@ -42,4 +42,4 @@ RUN 	/usr/bin/pip install pip --upgrade  \
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
-CMD ["jupyter", "console"]
+CMD ["/bin/bash"]
