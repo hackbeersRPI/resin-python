@@ -50,7 +50,8 @@ RUN cmake . \
 
 #ISNTAL PIP PACKAGES
 WORKDIR /
-RUN 	pip install pip --upgrade -q \
+RUN 	ln -sf /usr/local/bin/pip /usr/bin/pip \
+	&& pip install pip --upgrade -q \
 	&& pip install -q -r requeriments.txt \
 	&& python -m ipykernel.kernelspec
 
