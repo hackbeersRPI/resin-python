@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:wheezy-2015-04-08
 
 #VARIABLEs
 ENV DEBIAN_FRONTEND=noninteractive
@@ -55,7 +55,7 @@ RUN 	/usr/bin/pip install pip --upgrade  \
 RUN mkdir -p -m 700 /root/.jupyter/ \
 	&& echo "c.NotebookApp.ip = '10.2.0.1'" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
-	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
