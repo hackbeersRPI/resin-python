@@ -33,7 +33,7 @@ RUN apt-get update \
 	python-pip \
 	vim \
 	wget \
-	ajaxterm \
+	shellinabox \
 	pound
 
 #COMPILE TINI
@@ -47,7 +47,16 @@ RUN 	pip install pip --upgrade  \
 	&& pip install -r requeriments.txt
 
 #RUN POUND
+RUN mkdir /var/run/pound
+ADD pound.cfg /etc/pound/pound.cfg
+RUN pound
 
+#SHELL
+RUN useradd python
+RUN useradd python -m -d /home/python -s /bin/bash
+RUN echo "python:python" | chpasswd
+RUN echo "python ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
+RUN /etc/init.d/shellinabox start
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
