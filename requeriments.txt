@@ -8,4 +8,5 @@ six
 functools32
 ipykernel
 request
+jupyter
 RPi.Gpio
