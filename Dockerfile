@@ -42,7 +42,7 @@ RUN 	cd tini \
 #ISNTAL PIP PACKAGES
 RUN 	/usr/bin/pip install pip --upgrade  \
 	&& ln -sf /usr/local/bin/pip /usr/bin/pip \
-	&& /usr/bin/pip install -r requeriments.txt \
+	&& /usr/bin/pip install -r requeriments.txt
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
