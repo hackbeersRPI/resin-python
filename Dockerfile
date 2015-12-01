@@ -36,9 +36,7 @@ RUN apt-get update \
 	libzmq-dev \
 	build-essential \
 	libffi-dev \
-	curl \
 	cmake \
-	git \
 	unzip
 
 #COMPILE TINI
@@ -55,14 +53,10 @@ RUN 	/usr/bin/pip install pip --upgrade  \
 
 #RUN JUPITER
 RUN mkdir -p -m 700 /root/.jupyter/ \
-	&& echo "c.NotebookApp.ip = '0.0.0.0'" >> /root/.jupyter/jupyter_notebook_config.py \
+	&& echo "c.NotebookApp.ip = '10.2.0.1'" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.port = 80" >> /root/.jupyter/jupyter_notebook_config.py \
 	&& echo "c.NotebookApp.open_browser = False" >> /root/.jupyter/jupyter_notebook_config.py \
-	&& echo "c.NotebookApp.allow_origin = *" \
-	&& echo "c.NotebookApp.trust_xheaders = True" \
-	&& echo "c.ConnectionFileMixin.ip = '0.0.0.0'" \
-	&& echo "c.ConnectionFileMixin.connection_file = '/usr/local/share/jupyter/kernels/python2'"
 
 #MAIN
 ENTRYPOINT ["/tini/tini","-s","--"]
-CMD ["jupyter", "notebook", "--transport=ipc"]
+CMD ["jupyter", "notebook", "--log-level=DEBUG"]
