@@ -52,10 +52,10 @@ ADD pound.cfg /etc/pound/pound.cfg
 RUN pound
 
 #SHELL
-RUN useradd python
-RUN useradd python -m -d /home/python -s /bin/bash
-RUN echo "python:python" | chpasswd
-RUN echo "python ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
+RUN useradd shell
+RUN useradd shell -m -d /home/shell -s /bin/bash
+RUN echo "shell:shell" | chpasswd
+RUN echo "shell ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
 RUN /etc/init.d/shellinabox start
 
 #MAIN
