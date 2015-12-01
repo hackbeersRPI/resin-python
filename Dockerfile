@@ -46,7 +46,6 @@ RUN 	pip install pip --upgrade  \
 	&& pip install -r requeriments.txt
 
 #RUN POUND
-RUN mkdir /var/lib/haproxy
 RUN mkdir /var/run/haproxy
 ADD haproxy.cfg /etc/haproxy/haproxy.cfg
 
