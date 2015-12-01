@@ -1,11 +1,1 @@
-jupyter
-jsonschema
-pyzmq
-pexpect
-simplegeneric
-pickleshare
-six
-functools32
-ipykernel
-request
 RPi.Gpio

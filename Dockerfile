@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:wheezy-2015-04-08
+FROM hypriot/rpi-python
 
 #VARIABLEs
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,10 +24,6 @@ ADD tini.zip .
 #INSTALL PACKAGES
 RUN apt-get update \
 	&& apt-get install -yq --no-install-recommends \
-	python \
-	python-dev \
-	python-pip \
-	libzmq-dev \
 	build-essential \
 	libffi-dev \
 	cmake \
