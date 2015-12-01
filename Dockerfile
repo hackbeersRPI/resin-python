@@ -53,8 +53,9 @@ ADD haproxy.cfg /etc/haproxy/haproxy.cfg
 RUN useradd hack -m -d /home/hack -s /bin/bash
 RUN echo "hack:temporal" | chpasswd
 RUN echo "hack ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
-RUN /etc/init.d/shellinabox start
 
 #MAIN
+ADD entry.sh .
+RUN chmod +x entry.sh
 ENTRYPOINT ["/tini/tini","-s","--"]
-CMD ["/usr/sbin/haproxy", "-f", "/etc/haproxy/haproxy.cfg"]
+CMD ["entry.sh"]
