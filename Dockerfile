@@ -58,4 +58,4 @@ RUN echo "hack ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers
 ADD entry.sh .
 RUN chmod +x entry.sh
 ENTRYPOINT ["/tini/tini","-s","--"]
-CMD ["entry.sh"]
+CMD ["./entry.sh"]
