@@ -50,9 +50,9 @@ RUN cmake . \
 
 #ISNTAL PIP PACKAGES
 WORKDIR /
-RUN 	/usr/bin/pip install pip --upgrade -q \
-	&& /usr/bin/pip install -q -r requeriments.txt \
-	&& python -m ipykernel.kernelspec
+RUN 	usr/bin/pip install pip --upgrade -q \
+	&& usr/bin/pip install -q -r requeriments.txt \
+	&& usr/bin/python -m ipykernel.kernelspec
 
 #RUN JUPITER
 #RUN chmod +x jupyter.sh
